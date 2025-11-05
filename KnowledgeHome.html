@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Management System - Case Study</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fff;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #0066cc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: #fff;
+            padding: 120px 20px 80px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero .subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section {
+            padding: 80px 20px;
+        }
+        .section-alt {
+            background: #f8f9fa;
+        }
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .section-description {
+            font-size: 18px;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        .meta-item h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .meta-item p {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .role-overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .role-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        .role-subtitle {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        .role-list {
+            list-style: none;
+            padding: 0;
+        }
+        .role-list li {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        .role-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .overview-text {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .image-section {
+            margin: 60px 0;
+        }
+        .image-container {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .image-container img {
+            width: 100%;
+            display: block;
+        }
+        .image-caption {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin: 40px 0;
+        }
+        .challenge-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+        .challenge-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .challenge-box p, .challenge-box ul {
+            color: #856404;
+            line-height: 1.8;
+        }
+        .challenge-box ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+        .solution-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+        .solution-box h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .solution-box p {
+            color: #155724;
+            line-height: 1.8;
+        }
+        .feature-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        .feature-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 18px;
+            position: relative;
+            padding-left: 30px;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 30px;
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 16px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-section {
+            background: #2c3e50;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #1e40af;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .cta-button:hover {
+            background: #1e3a8a;
+        }
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero .subtitle {
+                font-size: 18px;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .role-overview-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav aria-label="Main navigation">
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: #1a1a1a;">Ashra Taslima</a></div>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+        <section id="project" class="section" style="margin-top: 50px;">
+        <div class="about-grid">
+            <div class="about-text">
+                <h1>Knowledge Management System</h1><hr>
+                <h5>Credit One Bank</h5>
+                <br>
+                <p>A modern platform revolutionizing how company knowledge base and agent productivity is managed</p>
+            </div>
+            <img src="kh.svg" alt="KnowledgeHome" class="about-image" style="box-shadow: none;">
+        </div>
+    </section>
+    <div class="container">
+        <div class="meta-grid">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX/UI Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>May-Aug 2023 (4 months)</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>1 Designer, Multiple Stakeholders</p>
+            </div>
+            <div class="meta-item">
+                <h3>Platform</h3>
+                <p>Web Application</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="container">
+            <div class="role-overview-grid">
+                <div class="role-section">
+                    <h2 class="role-title">My Role</h2>
+                    <p class="role-subtitle">UX/UI Designer</p>
+                    <ul class="role-list">
+                        <li>Conducted user research and stakeholder interviews</li>
+                        <li>Designed information architecture</li>
+                        <li>Created wireframes and prototypes</li>
+                        <li>Developed visual and interaction designs</li>
+                        <li>Led usability testing and iterations</li>
+                        <li>Built a cohesive design system</li>
+                    </ul>
+                </div>
+                <div class="overview-section">
+                    <h2 class="role-title">Project Overview</h2>
+                    <p class="overview-text">Knowledge Home, part of Credit One Bank’s Universal CRM Suite, transformed a fragmented knowledge base into a unified, scalable system. Initially a quick release, it evolved into a comprehensive redesign to serve call center agents, content managers, and administrators.</p>
+                    <p class="overview-text">The goal was to create an intuitive platform that delivers instant access to information for agents handling real-time customer inquiries while enabling efficient content management and system oversight.</p>
+                </div>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="kh-home.png"Knowledge Home landing page mockup showing prominent search bar and category cards">
+                </div>
+                <p class="image-caption">Knowledge Home: Centralized hub with search and category browsing</p>
+            </div>
+        </div>
+    </section>
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">The Challenge</h2>
+            <p class="section-description">Credit One Bank needed a modern knowledge management system to handle diverse content types and improve agent efficiency under pressure.</p>
+            <div class="challenge-box">
+                <h3>Existing System Limitations</h3>
+                <ul>
+                    <li><strong>Fragmented Tools:</strong> 10+ disparate CRM systems with no unified search</li>
+                    <li><strong>Poor Findability:</strong> Agents spent 6+ minutes per call searching</li>
+                    <li><strong>Unstructured Content:</strong> No clear hierarchy, burying critical information</li>
+                    <li><strong>Limited Formats:</strong> Only text articles, no FAQs or videos</li>
+                    <li><strong>Complex Updates:</strong> Content changes required IT intervention</li>
+                </ul>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">User Pain Points</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Information Overload:</strong> Unstructured content overwhelmed agents</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Time Pressure:</strong> Answers needed in seconds during calls</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Stale Content:</strong> Outdated information led to errors</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Format Constraints:</strong> No support for FAQs or videos</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Business Goals</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Reduce Call Time:</strong> Instant information access</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Improve Accuracy:</strong> Consistent, up-to-date answers</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Enable Self-Service:</strong> Content updates without IT</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Scale Efficiently:</strong> Support new services</p>
+                </div>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="KM Flow Chart.png" alt="Expected Work Flow of ">
+                </div>
+                <p class="image-caption">Visualizing the the desired work flow for the users</p>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Research & Discovery</h2>
+            <p class="section-description">Comprehensive research uncovered user needs and system gaps.</p>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Research Methods</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Stakeholder Interviews:</strong> Defined requirements with managers and IT</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Agent Observations:</strong> Shadowed live calls to identify pain points</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Content Audit:</strong> Mapped existing content gaps</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Competitive Analysis:</strong> Studied Zendesk, Salesforce Knowledge</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Insights</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Speed Critical:</strong> Answers needed in 5-10 seconds</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Category Preference:</strong> Browsing favored for learning</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Content Variety:</strong> FAQs for quick tasks, walkthroughs for complex</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Missing Feedback:</strong> No way to flag outdated content</p>
+                </div>
+            </div>
+            <div style="margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #1e40af;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">User Persona: Maria, The Customer Service Agent</h3>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Demographics:</strong> 28 years old, call center agent for 2 years, handles 40-50 calls daily, comfortable with technology but stressed during busy periods.</p>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Goals:</strong> Quickly find accurate information to help customers, maintain high quality scores, learn about new products and policies efficiently.</p>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Pain Points:</strong> Wastes time searching multiple systems, uncertain which information is current, can't find answers fast enough while customers wait.</p>
+                <p style="color: #5a6c7d; line-height: 1.8;"><strong>Quote:</strong> "I know the answer is somewhere in the system, but by the time I find it, the customer has been on hold for 3 minutes and is already frustrated with me."</p>
+            </div>
+        </div>
+    </section>
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Information Architecture</h2>
+            <p class="section-description">Redesigned structure for instant content discovery.</p>
+            <div class="solution-box">
+                <h3>Content Hierarchy</h3>
+                <p>Organized into categories (e.g., Express Pay, Fraud) with FAQs, articles, videos, walkthroughs, and memos.</p>
+            </div>
+            <div class="solution-box">
+                <h3>Content Types</h3>
+                <p>Introduced FAQs, Articles, Videos, Walkthroughs, and Memos with tailored templates.</p>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Creating Artifact.png" alt="Information architecture diagram showing content categories and navigation">
+                </div>
+                <p class="image-caption">Paths for Creating an artifact</p>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Design Solution</h2>
+            <p class="section-description">A system addressing pain points with simplicity and speed.</p>
+            <div class="solution-box">
+                <h3>1. Smart Search</h3>
+                <p>Prominent search bar with category filtering, prioritizing relevance.</p>
+            </div>
+            <div class="solution-box">
+                <h3>2. Contribution Workflow</h3>
+                <p>Intuitive flow for creating FAQs, Articles, Videos, Walkthroughs, or Memos.</p>
+            </div>
+            <div class="solution-box">
+                <h3>3. Rich Content Display</h3>
+                <p>Article pages with formatting, media, and feedback options.</p>
+            </div>
+            <div class="solution-box">
+                <h3>4. My Contributions Dashboard</h3>
+                <p>Tracks Drafts, Awaiting Approval, Published, and Rejected content.</p>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="KM 1.png"Search interface with category filters and smart suggestions">
+                </div>
+                <p class="image-caption">Smart search for rapid information retrieval</p>
+            </div>
+        </div>
+    </section>
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Key Features & Screens</h2>
+            <p class="section-description">Designed for specific tasks with consistent UX.</p>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Knowledge Home</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Central hub with search, featured content, and categories.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Category Browse</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Sidebar with expandable categories and content counts.</p>
+                </div>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="KM Authoring Expeirence - Select Topic-1.png" alt="Knowledge Home screen with search bar and category cards">
+                </div>
+                <p class="image-caption">Knowledge Home: Streamlined access to information</p>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Article Display</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Clean pages with typography, media, and feedback.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Contribute Flow</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Step-by-step creation with templates and media upload.</p>
+                </div>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Template.jpg" alt="Article page with formatted content and related links">
+                </div>
+                <p class="image-caption">Article page with rich formatting and feedback</p>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Visual Design & Components</h2>
+            <p class="section-description">Balanced Universal CRM constraints with modern UX.</p>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Design Principles</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Speed First:</strong> Minimal clicks to content</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Consistent Navigation:</strong> Persistent sidebar and search</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Content-First:</strong> Clean layouts with clear typography</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Clear Affordances:</strong> Descriptive buttons</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Component Library</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Content Cards:</strong> Consistent across content types</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Status Badges:</strong> Color-coded for content states</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Category Tags:</strong> Filterable with hover states</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Rich Text Editor:</strong> Supports diverse formatting</p>
+                </div>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="KM-library.png" alt="Component library with reusable cards and badges">
+                </div>
+                <p class="image-caption">Reusable components for system consistency</p>
+            </div>
+        </div>
+    </section>
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Usability Testing & Iteration</h2>
+            <p class="section-description">Validated designs with real user feedback.</p>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Testing Methods</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Task-Based Testing:</strong> 12 agents searched while thinking aloud</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Content Creation:</strong> Managers tested workflows</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>A/B Testing:</strong> Compared search layouts with 50 users</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Changes</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Larger Search Bar:</strong> Increased prominence</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Plain Language:</strong> Simplified category names</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Feedback Loop:</strong> Added “Was this helpful?” buttons</p>
+                </div>
+            </div>
+            <div style="margin-top: 60px;">
+                <h3 style="margin-bottom: 20px; font-size: 28px; color: #2c3e50;">User Feedback</h3>
+                <div class="two-column">
+                    <div style="padding: 30px; background: white; border-radius: 8px; border-left: 4px solid #28a745;">
+                        <p style="font-style: italic; color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">"This is a game changer. I can find what I need in seconds instead of fumbling through multiple systems while the customer waits. It's made my job so much less stressful."</p>
+                        <p style="color: #2c3e50; font-weight: 600;">- Sarah K., Call Center Agent</p>
+                    </div>
+                    <div style="padding: 30px; background: white; border-radius: 8px; border-left: 4px solid #28a745;">
+                        <p style="font-style: italic; color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">"I love that I can contribute content when I discover new information. Before, I'd have to email IT and wait weeks. Now I can update it myself and help my whole team."</p>
+                        <p style="color: #2c3e50; font-weight: 600;">- Marcus T., Senior Agent</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Results & Impact</h2>
+            <p class="section-description">Significant gains in productivity and accuracy.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Faster Retrieval</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">From 6+ min to ~2 min</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Articles Published</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">In 3 months</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Agent Satisfaction</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Up from 54%</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">User Contributions</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Of total content</p>
+                </div>
+            </div>
+            <div style="margin-top: 60px;">
+                <h3 style="margin-bottom: 20px; font-size: 28px; color: #2c3e50;">Business Impact</h3>
+                <ul class="feature-list">
+                    <li><strong>Reduced Training:</strong> Onboarding cut by 3 weeks</li>
+                    <li><strong>Improved Accuracy:</strong> Complaints down 28%</li>
+                    <li><strong>Content Growth:</strong> From 80 to 250+ articles</li>
+                    <li><strong>System Consolidation:</strong> Replaced 3 repositories</li>
+                    <li><strong>Agent Confidence:</strong> 67% felt more empowered</li>
+                </ul>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="KH-Last.jpg" alt="Dashboard showing key metrics like retrieval time and satisfaction">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Key Learnings</h2>
+            <p class="section-description">Lessons from designing for high-pressure environments.</p>
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">What Worked</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Speed-Focused:</strong> Minimized clicks to content</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Phased Rollout:</strong> Iterated based on real data</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>User Empowerment:</strong> Contributions drove engagement</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Challenges Overcome</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Design Constraints:</strong> Leveraged for consistency</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Quality Control:</strong> Balanced with approvals</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Diverse Needs:</strong> Integrated workflows</p>
+                </div>
+            </div>
+            <div style="margin-top: 60px; padding: 30px; background: #f8f9fa; border-radius: 8px;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">Future Opportunities</h3>
+                <ul class="feature-list">
+                    <li><strong>AI Search:</strong> NLP for smarter queries</li>
+                    <li><strong>Analytics:</strong> Track content usage and gaps</li>
+                    <li><strong>Personalization:</strong> Tailor to user preferences</li>
+                </ul>
+            </div>
+            <div style="margin-top: 60px; padding: 30px; background: white; border-radius: 8px; border-left: 4px solid #1e40af;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">Personal Reflection</h3>
+                <p style="color: #5a6c7d; line-height: 1.8;">Designing for agents under time pressure taught me to prioritize speed and clarity. Working within the Universal CRM system’s constraints showed how limitations can accelerate decisions and ensure consistency. Shadowing agents built deep empathy, reinforcing that every click impacts real user stress and customer satisfaction.</p>
+            </div>
+        </div>
+    </section>
+    <!-- <section class="cta-section">
+        <div class="container">
+            <h2>Explore More Projects</h2>
+            <p style="font-size: 18px; max-width: 600px; margin: 20px auto;">Discover other user-centered design solutions.</p>
+            <a href="projects.html" class="cta-button">Back to Portfolio</a>
+        </div>
+    </section> -->
+    <footer>
+        <p>&copy; 2025 Ashra Taslima. All rights reserved.</p>
+    </footer>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        // Section animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

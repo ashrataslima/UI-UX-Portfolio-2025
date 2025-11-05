@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coursology Platform - Case Study</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8b5cf6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            margin-top: 80px;
+            padding: 60px 20px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-text h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .about-text hr {
+            border: none;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, transparent);
+            margin: 20px 0;
+        }
+
+        .about-text h5 {
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .about-text p {
+            color: #5a6c7d;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .meta-item h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .meta-item p {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-alt {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .role-overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .role-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-subtitle {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .role-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .role-list li {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .role-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+
+        .overview-text {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin: 40px 0;
+        }
+
+        .challenge-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .challenge-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .challenge-box p, .challenge-box ul {
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        .challenge-box ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        .challenge-box li {
+            margin-bottom: 10px;
+        }
+
+        .solution-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .solution-box h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .solution-box p {
+            color: #155724;
+            line-height: 1.8;
+        }
+
+        .insight-box {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .insight-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        /* Interactive Flowchart */
+        .flowchart-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 24px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .flow-stage {
+            background: linear-gradient(45deg, #34c759, #40c4ff);
+            color: white;
+            font-weight: 600;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            width: 400px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .flow-stage:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .flow-stage.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scale(1.05);
+        }
+
+        .flow-stage svg {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .flow-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+        }
+
+        .flow-stage.active .flow-details {
+            max-height: 500px;
+            margin-top: 20px;
+        }
+
+        .flow-details-content {
+            text-align: left;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+        }
+
+        .flow-detail-item {
+            margin: 12px 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .flow-detail-item strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .flow-arrow {
+            width: 4px;
+            height: 50px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            margin: 8px 0;
+            position: relative;
+            animation: flowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes flowPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #764ba2;
+        }
+
+        .persona-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #8b5cf6;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .persona-box h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .persona-box p {
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .image-section {
+            margin: 60px 0;
+        }
+
+        .image-container {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-top: 15px;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 18px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #8b5cf6;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quote-box {
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 20px 0;
+        }
+
+        .quote-box p:first-child {
+            font-style: italic;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .quote-box p:last-child {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .cta-section {
+            background: #2c3e50;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #8b5cf6;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .about-text h1 {
+                font-size: 32px;
+            }
+
+            .two-column, .role-overview-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .flow-stage {
+                width: 100%;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="logo"><a href="index.html">Ashra Taslima</a></div>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-section">
+        <div class="about-grid">
+            <div class="about-text">
+                <h1>Coursology Learning Platform</h1>
+                <hr>
+                <h5>EdTech Startup</h5>
+                <br>
+                <p>Transforming online education: <strong>89% completion rate</strong>, <strong>3.2x engagement increase</strong></p>
+            </div>
+            <div class="about-image">
+                <img src="edTech.svg" alt="Coursology Platform">
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="meta-grid">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>Lead Product Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>6 months</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>2 Designers, 5 Developers, 1 PM</p>
+            </div>
+            <div class="meta-item">
+                <h3>Platform</h3>
+                <p>Web & Mobile Responsive</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="role-overview-grid">
+                <div class="role-section">
+                    <h2 class="role-title">My Role</h2>
+                    <p class="role-subtitle">Lead Product Designer</p>
+                    <ul class="role-list">
+                        <li>User research and persona development</li>
+                        <li>Competitive analysis and market research</li>
+                        <li>Information architecture and user flows</li>
+                        <li>Wireframing and high-fidelity prototyping</li>
+                        <li>Design system creation and documentation</li>
+                        <li>Usability testing and iteration</li>
+                        <li>Stakeholder presentations and design advocacy</li>
+                    </ul>
+                </div>
+                <div class="overview-section">
+                    <h2 class="role-title">Project Overview</h2>
+                    <p class="overview-text">Coursology is an emerging EdTech platform designed to revolutionize online learning for working professionals seeking career advancement. Despite offering high-quality content from industry experts, the platform struggled with poor user engagement, with only 23% of enrolled students completing their courses.</p>
+                    <p class="overview-text">The existing platform was built by engineers without dedicated UX resources, resulting in a functional but uninspiring learning experience. Users reported feeling lost, unmotivated, and overwhelmed by the interface, leading to high abandonment rates and negative reviews.</p>
+                    <p class="overview-text">I was brought in to lead a comprehensive redesign that would transform Coursology from a basic course repository into an engaging, intuitive learning platform that motivates users to achieve their educational goals while supporting the business objective of improving completion rates and user retention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">The Challenge</h2>
+            <p class="section-description">Coursology was facing a critical problem common in EdTech: users were enrolling but not completing courses, resulting in poor outcomes and limited growth potential.</p>
+
+            <div class="challenge-box">
+                <h3>The Core Problem</h3>
+                <ul>
+                    <li><strong>23% completion rate</strong> — industry average is 40-50% for paid courses</li>
+                    <li><strong>Average session time: 8 minutes</strong> — users weren't engaging deeply with content</li>
+                    <li><strong>67% of users never returned</strong> after first session — massive drop-off</li>
+                    <li><strong>2.3★ platform rating</strong> — poor reviews citing confusing navigation and lack of motivation</li>
+                    <li><strong>High support tickets</strong> — 45% related to "how do I..." questions about basic functionality</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">User Pain Points</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Lack of Direction:</strong> Users felt lost after enrolling, unsure where to start or how to structure their learning journey. No clear path or guidance on course progression.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Motivation Crisis:</strong> No sense of progress or achievement. Users couldn't see how far they'd come or how much remained, leading to early abandonment.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Overwhelming Interface:</strong> Cluttered dashboard showing all courses equally, making it difficult to focus on current priorities. Information overload paralyzed decision-making.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Disconnected Learning:</strong> No community features or peer interaction. Users felt isolated in their learning journey with no support system.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Business Challenges</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Revenue Impact:</strong> Low completion rates hurt word-of-mouth marketing and course reviews, limiting organic growth and new enrollments.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Content ROI:</strong> High-quality content from expert instructors wasn't translating to user success, wasting significant content investment.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Churn Problem:</strong> Users were canceling subscriptions after first month due to lack of engagement and perceived value.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Competitive Disadvantage:</strong> Established competitors like Coursera and Udemy offered superior user experiences, making it difficult to attract and retain learners.</p>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h3>Critical Insight</h3>
+                <p style="color: #5a6c7d; line-height: 1.8;">The fundamental problem wasn't content quality or course selection—it was that the platform failed to support the emotional and psychological aspects of learning. Adult learners juggling work, family, and education need more than just videos and quizzes; they need structure, motivation, progress visibility, and a sense of community to persist through challenging material.</p>
+            </div>
+
+            <div class="flowchart-container">
+                <h3 style="text-align: center; margin-bottom: 40px; font-size: 28px; color: #2c3e50;">Interactive User Journey Map</h3>
+                <p style="text-align: center; margin-bottom: 40px; color: #5a6c7d;">Click each stage to explore drop-off points and opportunities</p>
+
+                <div class="flowchart">
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 8v4l3 3"></path>
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        Stage 1: Awareness
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Views hero image, enters email, reads "Why Coursology"
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Email gate upfront (High Drop-off: 40-50%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Add "Browse Free Preview" CTA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="8.5" cy="7" r="4"></circle>
+                        </svg>
+                        Stage 2: Onboarding
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Signs Up/Sign In, fills form, agrees to terms
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Lengthy form, unclear "Class Standing" (Medium Drop-off: 30%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Simplify to email-only initial step
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M21 21l-6-6"></path>
+                            <circle cx="10" cy="10" r="8"></circle>
+                        </svg>
+                        Stage 3: Course Discovery
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Applies filters, searches courses, previews/adds
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Repetitive listings, no differentiation (High Drop-off: 35-45%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    De-dupe with variants, add sorting
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M19 21H5V7h14m0-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"></path>
+                        </svg>
+                        Stage 4: Enrollment & Dashboard
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Views enrolled courses, schedule, announcements
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Info overload, no "To-Do" prioritization (Medium Drop-off: 25%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Add "Quick Actions" rail
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        Stage 5: Course Access
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Reviews syllabus, checks schedule, watches lectures
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Repetitive text, incomplete schedule (Medium Drop-off: 20%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Use tabs, add progress bars
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Stage 6: Assessments
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Submits homework, takes quizzes/exams
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Missing reminders, no practice previews (Low-Medium Drop-off: 15%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Add notifications, "Start Practice" button
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                        </svg>
+                        Stage 7: Progress Tracking
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Action</strong>
+                                    Checks grades, browses resources
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Friction</strong>
+                                    Incomplete placeholders, no feedback (High Drop-off: 30%)
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Add insights, populate resources
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow"></div>
+
+                    <div class="flow-stage" onclick="toggleStage(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v.01"></path>
+                            <path d="M12 8v4"></path>
+                        </svg>
+                        Stage 8: Completion
+                        <div class="flow-details">
+                            <div class="flow-details-content">
+                                <div class="flow-detail-item">
+                                    <strong>Success</strong>
+                                    Users complete course and receive certificate
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Key Moment</strong>
+                                    Celebration animation and next course recommendation
+                                </div>
+                                <div class="flow-detail-item">
+                                    <strong>Opportunity</strong>
+                                    Enable social sharing, suggest learning paths
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Research & Discovery</h2>
+            <p class="section-description">I led a comprehensive research initiative to understand the real barriers preventing course completion and identify opportunities to create a more effective learning experience.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Research Methods</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>User Interviews (32 participants):</strong> Conducted in-depth 60-minute sessions with both active users and those who abandoned courses. Explored learning habits, motivation triggers, time management challenges, and past online learning experiences.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Analytics Deep Dive:</strong> Analyzed 6 months of user behavior data covering 15,000+ enrolled learners. Mapped drop-off points, session patterns, feature usage, and engagement metrics across different user segments.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Diary Studies (12 participants):</strong> Tracked learning behaviors over 4 weeks, capturing real-time frustrations, motivations, and context around when and why users engaged with the platform.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Competitive Analysis:</strong> Evaluated 8 leading platforms (Coursera, Udemy, LinkedIn Learning, Skillshare, Masterclass, Duolingo, Khan Academy, Codecademy) analyzing engagement mechanics, progress visualization, and motivational features.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Research Findings</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Time Poverty:</strong> 84% of users cited "not enough time" as primary barrier. However, deeper analysis revealed they spent 2-3 hours daily on social media—the issue was prioritization, not time availability.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Progress Blindness:</strong> 91% of users couldn't accurately estimate their progress through courses. Without visible milestones, motivation declined rapidly after initial enthusiasm.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Decision Fatigue:</strong> Users spent average 12 minutes per session just deciding what to watch, leaving less time for actual learning. Too many choices without guidance paralyzed action.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Accountability Gap:</strong> 76% of successful completers had external accountability (study groups, workplace requirements, or learning partners). Solo learners had 3x higher drop-off rates.</p>
+                </div>
+            </div>
+
+            <div class="persona-box">
+                <h3>Primary Persona: Marcus, The Career Switcher</h3>
+                <p><strong>Demographics:</strong> 29 years old, retail manager transitioning to UX design, works 45 hours/week, enrolled in 3 courses simultaneously</p>
+                <p><strong>Goals:</strong> Learn UX fundamentals to make career transition within 12 months, build portfolio projects, earn industry-recognized certificates</p>
+                <p><strong>Frustrations:</strong> Feels overwhelmed by course material, struggles to find time between work and family, loses track of progress across multiple courses, unsure which skills to prioritize</p>
+                <p><strong>Behavior Patterns:</strong> Typically learns late evening (9-11pm) on weekdays, longer sessions on weekends, prefers mobile for lectures, desktop for projects, high initial motivation that fades around week 3</p>
+                <p><strong>Quote:</strong> "I want to learn, but I open the app and just feel overwhelmed. There's so much content and I don't know where I should focus. By the time I figure out what to watch, I'm exhausted and just close it."</p>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="courseData.png" alt="User Personas">
+                </div>
+                <p class="image-caption">Detailed user personas based on 32 interviews and behavioral data analysis</p>
+            </div>
+
+            <div class="persona-box">
+                <h3>Secondary Persona: Jennifer, The Skills Upgrader</h3>
+                <p><strong>Demographics:</strong> 38 years old, marketing manager, using courses for professional development, employer-sponsored subscription</p>
+                <p><strong>Goals:</strong> Stay current with digital marketing trends, earn certificates for performance reviews, apply learnings to immediate work projects</p>
+                <p><strong>Frustrations:</strong> Difficult to find relevant courses for specific needs, can't track learning history to show manager, wants bite-sized content for busy schedule</p>
+                <p><strong>Behavior Patterns:</strong> Learning during lunch breaks and commute, focuses on practical applications, skips theory-heavy content, needs quick wins</p>
+                <p><strong>Quote:</strong> "I need to show my boss that I'm learning, but the platform doesn't give me any way to demonstrate my progress or share what I've completed."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Design Strategy & Principles</h2>
+            <p class="section-description">Based on research insights, I developed a design strategy focused on four core pillars that would guide all design decisions throughout the project.</p>
+
+            <div class="two-column">
+                <div class="insight-box">
+                    <h3>1. Guided Learning Paths</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Combat decision fatigue by providing clear, structured learning paths that guide users from beginner to advanced. Each path shows prerequisites, estimated time commitment, and career outcomes, eliminating the "what should I learn next?" problem.</p>
+                </div>
+                <div class="insight-box">
+                    <h3>2. Visible Progress</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Make progress tangible through visual indicators, milestone celebrations, and streak tracking. Users need to see their advancement to maintain motivation through challenging content and busy schedules.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="insight-box">
+                    <h3>3. Social Accountability</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Integrate community features, study groups, and progress sharing to provide accountability and support. Learning doesn't happen in isolation—connection to others pursuing similar goals dramatically improves completion rates.</p>
+                </div>
+                <div class="insight-box">
+                    <h3>4. Adaptive Scheduling</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Help users build sustainable learning habits by creating personalized schedules based on their availability, learning style, and goals. Smart reminders and flexible pacing accommodate real-world constraints.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 30px; background: white; border-radius: 8px;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">Design Principles</h3>
+                <ul class="feature-list">
+                    <li><strong>Clarity Over Features:</strong> Every screen should have a single primary action. Reduce cognitive load by limiting choices and providing clear next steps.</li>
+                    <li><strong>Progress Made Visible:</strong> Never let users wonder "how much have I completed?" Progress should be omnipresent and celebratory.</li>
+                    <li><strong>Respect Time Constraints:</strong> Design for learners with 15-30 minute windows. Enable meaningful progress in short sessions while supporting longer deep work.</li>
+                    <li><strong>Build Trust Through Transparency:</strong> Be honest about time commitments, difficulty levels, and prerequisites. No surprises that erode confidence.</li>
+                    <li><strong>Celebrate Small Wins:</strong> Learning is hard. Recognize every milestone, completed lesson, and maintained streak to build positive reinforcement loops.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Information Architecture & User Flows</h2>
+            <p class="section-description">I restructured the entire platform architecture to prioritize learning continuity and reduce friction in the user journey from discovery to completion.</p>
+
+            <div class="solution-box">
+                <h3>Redesigned Navigation Structure</h3>
+                <p>Simplified from 7 top-level menu items to 4 core sections: Learn (current courses and recommendations), Explore (course discovery), Progress (achievements and stats), and Community (discussions and study groups). This 43% reduction in navigation complexity eliminated decision paralysis while maintaining full functionality access.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key User Flows</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Onboarding Flow:</strong> New users complete a 2-minute goal-setting questionnaire that identifies their objectives, skill level, and time availability. The system then recommends a personalized learning path with realistic time commitments.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Daily Learning Session:</strong> Users land on "Continue Learning" screen showing exactly where they left off, eliminating the "what should I do" decision. One tap resumes their last lesson with full context.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Course Completion Flow:</strong> Upon finishing a course, users immediately see celebration animation, certificate generation, and recommendations for next steps, maintaining momentum toward their goals.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Critical Path Optimization</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Course Discovery:</strong> Reduced from 5 steps to 2 steps with smart filtering and personalized recommendations based on learning history and goals. Users find relevant content 3x faster.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Lesson Start:</strong> Eliminated pre-roll ads and unnecessary intro screens. Users click play and start learning immediately, reducing friction that caused abandonment.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Progress Checking:</strong> Moved from buried settings menu to prominent dashboard placement. Users can now view comprehensive progress in 1 tap vs. 4 taps previously.</p>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="courseDataBase.png" alt="Information Architecture">
+                </div>
+                <p class="image-caption">Restructured information architecture prioritizing learning continuity</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Design Solutions & Features</h2>
+            <p class="section-description">I designed a comprehensive set of features addressing each pain point discovered during research, creating an integrated learning experience that motivates and supports users throughout their journey.</p>
+
+            <div class="solution-box">
+                <h3>1. Smart Dashboard: Your Learning Command Center</h3>
+                <p>Redesigned the homepage as a personalized learning hub that answers three critical questions immediately: "Where am I in my learning?", "What should I do next?", and "Am I making progress?". Features a prominent "Continue Learning" card showing the exact lesson and timestamp where users left off, eliminating decision fatigue. Progress rings visualize completion percentages for active courses, while a weekly streak tracker and learning statistics provide motivational feedback. This reduced average time-to-start-learning from 12 minutes to 38 seconds.</p>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="User Dash Board - Student.png" alt="Smart Dashboard Design">
+                </div>
+                <p class="image-caption">Personalized dashboard with continue learning, progress visualization, and streak tracking</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>2. Learning Paths: Structured Journey to Mastery</h3>
+                <p>Created curated learning paths designed by industry experts for specific career goals (e.g., "UX Designer Career Path", "Full-Stack Developer", "Digital Marketing Professional"). Each path shows a visual progression map with locked and unlocked courses, estimated total time (e.g., "3-6 months at 5 hours/week"), prerequisite requirements, and career outcomes with salary data. Users can see exactly where they are on their journey and what comes next, providing the structure and direction that 91% of users said was missing. Learning paths increased course completion rates by 187% compared to individual course enrollment.</p>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Course  Schedule.png" alt="Learning Paths Interface">
+                </div>
+                <p class="image-caption">Structured learning paths with visual progression and milestone unlocking</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>3. Progress Visualization & Social Features</h3>
+                <p>Designed a comprehensive progress system that makes learning achievements tangible with circular progress indicators, milestone badges, learning streak tracking, and weekly time charts. Introduced community features including study groups, discussion forums, and a "learning buddy" system. Users in active study groups showed 89% completion rates vs. 34% for solo learners. Progress visibility reduced mid-course abandonment by 64%.</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>4. Mobile-First Video Experience</h3>
+                <p>Optimized video player for mobile learning with variable playback speed (0.75x to 2x), audio-only mode for listening during commutes, picture-in-picture mode, downloadable lessons for offline viewing, and interactive transcripts. Created a mobile-optimized note-taking interface allowing users to capture insights without leaving the video. Mobile engagement increased 289% after implementing these features.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Prototyping & Usability Testing</h2>
+            <p class="section-description">I conducted multiple rounds of testing throughout the design process, validating assumptions and refining solutions based on real user feedback before committing to development.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Testing Methodology</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Wireframe Testing (Round 1):</strong> Created low-fidelity wireframes and tested with 12 users to validate information architecture and user flow concepts.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>High-Fidelity Prototype Testing (Round 2):</strong> Developed interactive prototypes in Figma with realistic content and animations. Conducted moderated sessions with 20 users testing key flows.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Beta Testing (Round 3):</strong> Released redesign to 200 beta users for 4 weeks of real-world usage. Collected quantitative metrics alongside qualitative feedback.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>A/B Testing (Round 4):</strong> Tested specific design variants including onboarding flows, progress visualization styles, and notification strategies.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Critical Findings & Iterations</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Learning Path Complexity:</strong> Initial designs showed all courses simultaneously, overwhelming users. Refined to show only "unlocked" courses with locked ones grayed out.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Notification Fatigue:</strong> Early beta testers complained about too many reminders. Implemented smart notification preferences with machine learning.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Progress Anxiety:</strong> Some users felt discouraged by remaining content. Added ability to toggle between percentage and hours completed views.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Mobile Video Controls:</strong> Redesigned with gesture controls and simplified UI showing only essential elements during playback.</p>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="courseWire.png" alt="Wireframes and Prototypes">
+                </div>
+                <p class="image-caption">Evolution from low-fidelity wireframes to high-fidelity interactive prototypes</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Results & Impact</h2>
+            <p class="section-description">The redesigned Coursology platform delivered transformative results across all key metrics, validating the user-centered design approach and exceeding business objectives.</p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Completion Rate</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Up from 23% (287% increase)</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.7★</div>
+                    <div class="stat-label">User Satisfaction</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Up from 2.3★ (+104%)</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3.2x</div>
+                    <div class="stat-label">Daily Active Users</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">From 8k to 25.6k users</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">34min</div>
+                    <div class="stat-label">Avg Session Duration</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Up from 8 minutes (+325%)</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <h3 style="margin-bottom: 20px; font-size: 28px; color: #2c3e50;">Business Impact</h3>
+                <ul class="feature-list">
+                    <li><strong>Revenue Growth:</strong> Monthly recurring revenue increased 156% due to higher retention and positive word-of-mouth driving new enrollments</li>
+                    <li><strong>Churn Reduction:</strong> Monthly churn decreased from 38% to 12%, with users citing improved experience as primary reason for staying</li>
+                    <li><strong>Customer Support:</strong> Support tickets decreased 67%, saving estimated $180K annually in support costs</li>
+                    <li><strong>Learning Path Adoption:</strong> 74% of new users enrolled in structured learning paths, leading to higher completion rates</li>
+                    <li><strong>Mobile Engagement:</strong> Mobile sessions increased 289%, with mobile now representing 71% of total learning time</li>
+                    <li><strong>Social Features:</strong> 43% of users joined study groups, with group members showing 89% completion rates</li>
+                    <li><strong>Certificate Completions:</strong> Number of certificates earned increased 412%, improving platform reputation</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <h3 style="margin-bottom: 20px; font-size: 28px; color: #2c3e50;">User Feedback & Testimonials</h3>
+                <div class="two-column">
+                    <div class="quote-box">
+                        <p>"I've tried Coursera, Udemy, and Skillshare, but Coursology is the first platform where I actually finished what I started. The learning paths give me clear direction, and seeing my progress keeps me motivated every day."</p>
+                        <p>- Marcus T., UX Design Student</p>
+                    </div>
+                    <div class="quote-box">
+                        <p>"The mobile app is perfect for my commute. I can listen to lectures on the train and take notes during lunch breaks. I've completed 4 courses in 3 months—more than I did in 2 years on other platforms."</p>
+                        <p>- Jennifer K., Marketing Manager</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="final.png" alt="Final Product Screenshots">
+                </div>
+                <p class="image-caption">Final product: Dashboard, learning paths, course viewer, and progress tracking</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Key Learnings & Reflections</h2>
+            <p class="section-description">This project taught me valuable lessons about designing for behavior change, balancing business objectives with user needs, and the importance of iterative testing in complex product design.</p>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">What Worked Exceptionally Well</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Research Investment:</strong> Spending 6 weeks on comprehensive research before designing solutions paid enormous dividends. Understanding psychological barriers allowed us to address root causes.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Iterative Testing:</strong> Multiple rounds of testing prevented costly mistakes and validated which features truly moved the needle on completion rates.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Behavioral Psychology Application:</strong> Applying habit formation principles created an experience that naturally encouraged consistent engagement.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Mobile-First Approach:</strong> Prioritizing mobile from the start resulted in a superior experience where most learning actually happens.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">What I Would Do Differently</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Earlier Stakeholder Involvement:</strong> Involving instructors and content creators earlier would have smoothed the content restructuring phase and generated more buy-in.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Longitudinal Studies:</strong> Following users for 6+ months would have revealed additional insights about long-term motivation cycles.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Accessibility from Day One:</strong> Involving users with disabilities during initial design would have led to more elegant solutions benefiting all users.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="cta-section">
+        <div class="container">
+            <h2>View More Projects</h2>
+            <p style="font-size: 18px; max-width: 600px; margin: 20px auto;">Explore other case studies showcasing user-centered design solutions for complex problems.</p>
+            <a href="projects.html" class="cta-button">Back to Portfolio</a>
+        </div>
+    </section> -->
+
+    <footer>
+        <p>&copy; 2024 Ashra Taslima. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle flowchart stage details - MUST BE DEFINED FIRST
+        function toggleStage(element) {
+            const allStages = document.querySelectorAll('.flow-stage');
+            
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+            } else {
+                allStages.forEach(stage => stage.classList.remove('active'));
+                element.classList.add('active');
+            }
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.content-card, .process-step, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                if (element.textContent.includes('%')) {
+                    element.textContent = Math.floor(current) + '%';
+                } else if (element.textContent.includes('x')) {
+                    element.textContent = current.toFixed(1) + 'x';
+                } else if (element.textContent.includes('min')) {
+                    element.textContent = Math.floor(current) + 'min';
+                } else if (element.textContent.includes('★')) {
+                    element.textContent = current.toFixed(1) + '★';
+                }
+            }, 16);
+        }
+
+        // Trigger counter animation when stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const text = entry.target.textContent;
+                    const number = parseFloat(text);
+                    animateCounter(entry.target, number);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+    </script>
+
+    </body>
+    </html>

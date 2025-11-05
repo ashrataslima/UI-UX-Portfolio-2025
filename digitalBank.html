@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Banking App - Case Study</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+            color: #fff;
+            padding: 120px 20px 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-alt {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .meta-item h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .meta-item p {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .role-overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .role-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-subtitle {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .role-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .role-list li {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .role-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .overview-text {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-section {
+            margin: 60px 0;
+        }
+
+        .image-container {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin: 40px 0;
+        }
+
+        .challenge-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .challenge-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .challenge-box p {
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        .solution-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .solution-box h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .solution-box p {
+            color: #155724;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 18px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-section {
+            background: #2c3e50;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0066cc;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #0052a3;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .role-overview-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: #1a1a1a;">Ashra Taslima</a></div>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="project" class="section" style="margin-top: 50px;">
+        <div class="about-grid">
+            <div class="about-text">
+                <h1>Credit One Bank Mobile App</h1><hr>
+                <h5>Credit One Bank</h5>
+                <br>
+                <p>Rebuilt for credit rebuilders: **42% ↑ payments**, **78% urgency solved**</p>
+            </div>
+                <img src="Frame 85 (1).svg" alt="Digital Bank" class="about-image">
+            </div>
+    </section>
+
+    <div class="container">
+        <div class="meta-grid">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>Lead UX/UI Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>4 months</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>1 Designer, 4 Developers</p>
+            </div>
+            <div class="meta-item">
+                <h3>Platform</h3>
+                <p>iOS & Android</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="role-overview-grid">
+                <div class="role-section">
+                    <h2 class="role-title">My Role</h2>
+                    <p class="role-subtitle">UX/UI Designer</p>
+                    <ul class="role-list">
+                        <li>User research and competitive analysis</li>
+                        <li>Information architecture</li>
+                        <li>Wireframing and prototyping</li>
+                        <li>Visual design and interaction design</li>
+                        <li>Usability testing</li>
+                    </ul>
+                </div>
+                <div class="overview-section">
+                    <h2 class="role-title">Project Overview</h2>
+                    <p class="overview-text">Credit One Bank was relying on an outsourced mobile application that was not only costly but also plagued by critical errors, with fixes often delayed due to third-party dependencies. To address these challenges, the bank decided to bring development in-house, eliminating outsourcing expenses and enabling immediate bug fixes by an internal team.</p>
+                    <P class="overview-text">The new app empowers customers to seamlessly manage their credit cards, make payments, track rewards, and monitor their credit scores.</P>
+                    <p class="overview-text">The goal was to deliver an intuitive mobile experience that simplifies payment workflows, enhances security features, and provides valuable insights into credit health; all while ensuring accessibility for users with varying levels of tech proficiency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">The Challenge</h2>
+            <p class="section-description">Credit One Bank was trapped in an expensive, broken outsourced ecosystem:</p>
+
+            <div class="challenge-box">
+                <h3>Outsourced App + 10+ CRM Tools</h3>
+                <ul>
+                    <li><strong>$1.2M/year</strong> in vendor fees</li>
+                    <li><strong>28% payment error rate</strong> → 6+ min lost per call</li>
+                    <li><strong>Critical bugs took 3–7 days to fix</strong> (vendor delays)</li>
+                    <li><strong>No control</strong> over UX, security, or updates</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">User Pain Points</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Payment Friction:</strong> Bank account verification required repeatedly for fraud protection, creating 3-5 day delays before users could make payments</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Limited Flexibility:</strong> Only bank account payments accepted, excluding users with debit cards or DirectExpress accounts</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Credit Reporting Confusion:</strong> Immediate payments still showing as balances on credit reports, causing user distrust</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Access Barriers:</strong> Full sign-in required for simple tasks like checking balance or making quick payments</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Business Goals</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Reduce Late Payments:</strong> Increase on-time payment rates through easier payment workflows and reminder systems</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Lower Support Costs:</strong> Decrease payment-related support calls by improving clarity and reducing friction</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Improve Satisfaction:</strong> Increase app store ratings from 2.8 to 4+ stars through better UX</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Drive Engagement:</strong> Increase feature adoption for AutoPay, alerts, and credit monitoring</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 30px; background: white; border-radius: 8px;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">Understanding Our Users</h3>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Credit One Bank serves a diverse customer base, including individuals building or rebuilding credit. Many users were first-time credit card holders or those recovering from financial setbacks. This meant our design needed to be accessible to users with varying levels of financial literacy and technology comfort. User research revealed that approximately 40% of customers were over 50 years old and self-described as "technologically challenged," requiring an interface that prioritized clarity and simplicity over flashy features.</p>
+                <p style="color: #5a6c7d; line-height: 1.8;">The customer demographics showed a significant portion relied on alternative banking methods like DirectExpress debit cards, making the bank-account-only payment limitation particularly painful. These users often had to call customer service (paying a $7 fee) just to make payments, creating a poor experience and additional costs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Research & Discovery</h2>
+            <p class="section-description">We conducted a comprehensive research phase combining quantitative data analysis with qualitative user insights to understand the full scope of user needs, frustrations, and opportunities for improvement.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Research Methods</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>App Store Analysis:</strong> Analyzed 500+ user reviews spanning 18 months to identify recurring themes and sentiment patterns. Common complaints centered around payment verification (mentioned in 34% of negative reviews), limited payment options (28%), and credit reporting confusion (22%).</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>User Interviews:</strong> Conducted 20 in-depth interviews with credit card holders of varying ages (25-68) and credit experience levels. Sessions lasted 45-60 minutes and covered payment behaviors, security concerns, and feature priorities.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Support Ticket Analysis:</strong> Reviewed 1,000+ customer service interactions to understand common issues and questions that could be addressed through better design.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Competitive Analysis:</strong> Evaluated 12 leading credit card and banking apps including Chase, Capital One, American Express, and digital-first competitors like Chime and Current to identify best practices and opportunities for differentiation.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Research Insights</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Payment Urgency:</strong> 78% of users wanted to make payments immediately upon receiving their statement email, but verification delays prevented this, leading to missed payment windows and late fees.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Payment Method Preference:</strong> 42% of users preferred or needed debit card payments over bank account transfers, particularly those using DirectExpress or prepaid debit cards.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Quick Access Value:</strong> Users checked their balance an average of 3.5 times per week but only made payments 1-2 times per month, indicating a need for lightweight access methods.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Credit Education Gap:</strong> 65% of users didn't understand how payment timing affected credit reporting, leading to preventable credit score impacts.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #0066cc;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">User Persona: Sarah, The Credit Builder</h3>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Demographics:</strong> 32 years old, retail manager, rebuilding credit after financial hardship, tech-comfortable but cautious about finances.</p>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Goals:</strong> Rebuild credit score from 580 to 700+, never miss a payment, understand what actions help or hurt her credit.</p>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Pain Points:</strong> Confused about when payments actually post, worried about security but frustrated by verification delays, wants flexibility in how she pays.</p>
+                <p style="color: #5a6c7d; line-height: 1.8;"><strong>Quote:</strong> "I paid my bill the same day I got the email, but it still showed up as a balance on my credit report. I don't understand what I'm doing wrong."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Form Components & Input Design</h2>
+            <p class="section-description">Designed comprehensive form controls and dropdown systems to handle complex financial data entry with validation, error handling, and accessibility features.</p>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Beneficiaries - Mobile.svg" alt="Form Controls">
+                </div>
+                <p class="image-caption">Dropdown components with search, filtering, and specialized financial data inputs</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>Design Solution</h3>
+                <p>Created specialized input components for account selection, date pickers, and amount entry. Each component includes smart validation, clear error messaging, and contextual help to guide users through financial transactions with confidence. The dropdown system supports both selection and search functionality for users with multiple accounts.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Design Solution</h2>
+            <p class="section-description">Based on our research insights, I designed a comprehensive mobile banking experience that addressed each pain point while maintaining security and regulatory compliance.</p>
+
+            <div class="solution-box">
+                <h3>1. Express Pay - Instant Access Without Login</h3>
+                <p>Created a streamlined payment flow allowing users to make payments without full authentication. Users can enter their card number and payment details directly, reducing friction by 80%. This feature alone reduced support calls by 35% in the first quarter after launch.</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>2. Multiple Payment Methods</h3>
+                <p>Expanded payment options to include bank accounts, debit cards, and DirectExpress cards. Implemented smart payment method detection and saved payment methods for returning users. This increased successful payment completion rates from 72% to 94%.</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>3. Biometric Authentication</h3>
+                <p>Integrated Face ID and fingerprint authentication for quick, secure access to account information. This eliminated the need for users to remember complex passwords while maintaining bank-grade security standards.</p>
+            </div>
+
+            <div class="solution-box">
+                <h3>4. Intelligent Payment Scheduling</h3>
+                <p>Designed a payment scheduler that educates users on credit reporting cycles. The interface clearly shows when payments will post and how they'll affect credit reports, with educational tooltips explaining the 30-day reporting cycle.</p>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Collection.png" alt="Empty States">
+                </div>
+                <p class="image-caption">Thoughtful empty states with clear calls-to-action and educational content</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Information Architecture & User Flows</h2>
+            <p class="section-description">I restructured the app's navigation to prioritize the most common user tasks while making advanced features discoverable without overwhelming new users.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Navigation Structure</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Home Dashboard:</strong> At-a-glance view of balance, payment due date, available credit, and credit score. Designed to answer the user's most pressing questions immediately upon opening the app.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Payments Hub:</strong> Centralized payment center with quick pay, scheduled payments, AutoPay setup, and payment history. Reduced payment flow from 7 screens to 3.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Activity & Transactions:</strong> Detailed transaction history with categorization, search, and dispute functionality.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Account Management:</strong> Profile settings, security options, notifications, and account preferences organized in logical groupings.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key User Flows</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Quick Balance Check:</strong> Users can check balance via Face ID → Dashboard in under 3 seconds, with no additional navigation required.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Express Payment:</strong> Card number → Amount → Payment method → Confirmation in 4 taps, averaging 45 seconds completion time.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>AutoPay Setup:</strong> Guided 3-step wizard explaining AutoPay options (minimum, statement balance, or custom amount) with educational tooltips.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Credit Score Monitoring:</strong> Weekly credit score updates with trend visualization and personalized tips for improvement.</p>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="onBoarding.svg" alt="User Flows">
+                </div>
+                <p class="image-caption">Optimized user flows reducing steps from 7 to 3 for common tasks</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Visual Design & Component Library</h2>
+            <p class="section-description">I created a comprehensive design system that balanced Credit One Bank's brand identity with modern mobile banking conventions, ensuring consistency across all touchpoints.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Design Principles</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Clarity Over Complexity:</strong> Every screen answers a specific user question. Information hierarchy prioritizes what users need most, with secondary information accessible but not intrusive.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Trust Through Transparency:</strong> Clear labeling of all actions, especially financial transactions. Confirmation screens summarize what will happen before execution.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Accessible by Default:</strong> WCAG 2.1 AA compliant with 4.5:1 color contrast ratios, large touch targets (minimum 44x44pt), and full screen reader support.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Progressive Disclosure:</strong> Advanced features hidden behind intuitive entry points, preventing overwhelm for new users while maintaining power user efficiency.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Component System</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Action Cards:</strong> Reusable card components for account summaries, transaction items, and promotional content with consistent padding and interaction patterns.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Form Controls:</strong> Custom input fields with built-in validation, error states, and success feedback optimized for financial data entry.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Status Indicators:</strong> Color-coded system for payment status (pending, processing, completed) with icons and clear text labels for accessibility.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Illustrations:</strong> Custom illustration set conveying financial concepts and empty states in a friendly, approachable style that reduces anxiety around money management.</p>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="13 Messaging Patterns.svg" alt="Design System">
+                </div>
+                <p class="image-caption">Comprehensive component library ensuring consistency across the entire app</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Usability Testing & Iteration</h2>
+            <p class="section-description">Conducted multiple rounds of testing with real users to validate design decisions and identify areas for improvement before launch.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Testing Methodology</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Prototype Testing:</strong> 15 moderated sessions with high-fidelity prototypes testing core user flows. Participants completed tasks while thinking aloud, revealing pain points and confusion.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>A/B Testing:</strong> Tested two payment flow variants with 200 beta users. Version A (3 screens) outperformed Version B (5 screens) with 23% higher completion rate.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Accessibility Audit:</strong> Tested with screen reader users and users with motor impairments, leading to improvements in touch target sizes and keyboard navigation.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Findings & Changes</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Payment Confirmation Anxiety:</strong> Users wanted explicit confirmation that payments were scheduled. Added prominent confirmation screen with email/SMS confirmation option.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Credit Score Education:</strong> 80% of users didn't understand credit utilization. Added contextual education explaining how balances affect scores, integrated into the dashboard.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Biometric Opt-in:</strong> Initial design required biometric setup. Changed to optional with clear value proposition, increasing adoption from 45% to 78%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Results & Impact</h2>
+            <p class="section-description">The redesigned mobile app delivered measurable improvements across all key metrics within 6 months of launch.</p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">Payment Completion Rate</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Up from 72%</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.3★</div>
+                    <div class="stat-label">App Store Rating</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Up from 2.8★</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">42%</div>
+                    <div class="stat-label">Reduction in Support Calls</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Saving $840K annually</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$1.2M</div>
+                    <div class="stat-label">Annual Savings</div>
+                    <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Eliminated vendor fees</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <h3 style="margin-bottom: 20px; font-size: 28px; color: #2c3e50;">Business Impact</h3>
+                <ul class="feature-list">
+                    <li><strong>On-Time Payments:</strong> Increased from 68% to 87% due to improved payment flows and reminder system</li>
+                    <li><strong>AutoPay Enrollment:</strong> 23% of active users enrolled in AutoPay within first 3 months, exceeding 15% target</li>
+                    <li><strong>Feature Adoption:</strong> Credit score monitoring accessed by 65% of users monthly, driving engagement and satisfaction</li>
+                    <li><strong>Development Velocity:</strong> In-house team fixed critical bugs within hours instead of days, improving app stability by 89%</li>
+                    <li><strong>User Retention:</strong> 30-day retention increased from 52% to 71%, indicating stronger product-market fit</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <h3 style="margin-bottom: 20px; font-size: 28px; color: #2c3e50;">User Feedback</h3>
+                <div class="two-column">
+                    <div style="padding: 30px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                        <p style="font-style: italic; color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">"Finally! I can make payments without calling customer service every time. The app actually works now and I can use my debit card."</p>
+                        <p style="color: #2c3e50; font-weight: 600;">- Maria R., Credit One Customer</p>
+                    </div>
+                    <div style="padding: 30px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                        <p style="font-style: italic; color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">"The credit score feature helps me understand what I'm doing right. I've raised my score 40 points in 6 months by following the tips."</p>
+                        <p style="color: #2c3e50; font-weight: 600;">- James T., Credit One Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Key Learnings & Takeaways</h2>
+            <p class="section-description">This project reinforced several important principles about designing financial products for diverse user populations.</p>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">What Worked Well</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>User-Centric Research:</strong> Deep investment in understanding user pain points through multiple research methods paid dividends. The Express Pay feature directly addressed the #1 user complaint.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Iterative Testing:</strong> Testing early and often prevented costly mistakes. The biometric opt-in change alone improved adoption by 33%.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Education Integration:</strong> Rather than assuming users understood credit concepts, we integrated education naturally into the interface, improving both satisfaction and financial outcomes.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Challenges & Solutions</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Balancing Security & Convenience:</strong> Worked closely with security team to implement Express Pay in a way that met regulatory requirements while reducing friction.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Technical Constraints:</strong> Some desired features required backend changes. Prioritized features based on impact vs. effort, delivering quick wins while planning larger improvements.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Diverse User Base:</strong> Designing for users aged 18-70 with varying tech literacy required extensive testing and multiple design iterations to ensure universal usability.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; padding: 30px; background: white; border-radius: 8px;">
+                <h3 style="margin-bottom: 20px; font-size: 24px; color: #2c3e50;">Future Opportunities</h3>
+                <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">While the initial launch was successful, there are several areas for continued improvement and expansion:</p>
+                <ul class="feature-list" style="margin-top: 20px;">
+                    <li><strong>Spending Insights:</strong> Develop AI-powered spending categorization and budgeting tools to help users manage their credit responsibly</li>
+                    <li><strong>Personalized Recommendations:</strong> Use machine learning to provide tailored credit improvement suggestions based on individual user behavior</li>
+                    <li><strong>Social Features:</strong> Explore peer support features allowing users to share credit-building success stories (with privacy controls)</li>
+                    <li><strong>Card Controls:</strong> Add real-time card lock/unlock, spending limits, and merchant category blocking for better fraud prevention</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="cta-section">
+        <div class="container">
+            <h2>View More Projects</h2>
+            <p style="font-size: 18px; max-width: 600px; margin: 20px auto;">Explore other case studies showcasing user-centered design solutions for complex problems.</p>
+            <a href="projects.html" class="cta-button">Back to Portfolio</a>
+        </div>
+    </section> -->
+
+    <footer>
+        <p>&copy; 2024 Ashra Taslima. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

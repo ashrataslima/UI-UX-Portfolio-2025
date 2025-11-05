@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Case Management - Case Study</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #0ea5e9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: #fff;
+            padding: 120px 20px 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-alt {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .meta-item h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .meta-item p {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .role-overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .role-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-subtitle {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .role-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .role-list li {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .role-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .overview-text {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-section {
+            margin: 60px 0;
+        }
+
+        .image-container {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin: 40px 0;
+        }
+
+        .challenge-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .challenge-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .challenge-box p {
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        .solution-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .solution-box h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .solution-box p {
+            color: #155724;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 18px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-box {
+            margin-top: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .info-box h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .info-box p {
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .persona-box {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #0ea5e9;
+        }
+
+        .persona-box h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .persona-box p {
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .cta-section {
+            background: #2c3e50;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0ea5e9;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #0284c7;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .role-overview-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: #1a1a1a;">Ashra Taslima</a></div>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="project" class="section" style="margin-top: 50px;">
+        <div class="about-grid">
+            <div class="about-text">
+                <h1>Work Case Managment</h1><hr>
+                <h5>Credit One Bank</h5>
+                <br>
+                <p>Transforming complex customer service workflows into intuitive, efficient case resolution experiences</p>
+            </div>
+                <img src="workCase1.svg" alt="Work Case Managment" class="about-image">
+            </div>
+    </section>
+
+    <div class="container">
+        <div class="meta-grid">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>Lead UX/UI Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>8 months</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>1 Designers, 4 Engineers, 1 PM</p>
+            </div>
+            <div class="meta-item">
+                <h3>Platform</h3>
+                <p>Enterprise Web Application</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="role-overview-grid">
+                <div class="role-section">
+                    <h2 class="role-title">My Role</h2>
+                    <p class="role-subtitle">UX/UI Designer</p>
+                    <ul class="role-list">
+                        <li>User research with customer service teams</li>
+                        <li>Workflow analysis and process mapping</li>
+                        <li>Information architecture and navigation design</li>
+                        <li>High-fidelity prototyping and interaction design</li>
+                        <li>Design system development and documentation</li>
+                        <li>Usability testing and iterative refinement</li>
+                        <li>Cross-functional collaboration with engineering</li>
+                    </ul>
+                </div>
+                <div class="overview-section">
+                    <h2 class="role-title">Project Overview</h2>
+                    <p class="overview-text">Credit One Bank's customer service teams needed a comprehensive case management system to handle customer inquiries, disputes, and support requests more efficiently. The existing process relied on disconnected tools, manual workflows, and fragmented information, leading to delayed resolutions and inconsistent customer experiences.</p>
+                    <p class="overview-text">The goal was to design an integrated work case management platform that consolidates customer information, automates routine tasks, provides intelligent routing, and enables agents to resolve cases faster while maintaining compliance and quality standards. The system needed to serve diverse user types including frontline agents, supervisors, compliance officers, and management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">The Challenge</h2>
+            <p class="section-description">Customer service agents were managing cases across multiple disconnected systems, leading to inefficient workflows, information silos, and frustrated customers waiting for resolutions. The lack of a unified platform resulted in duplicate work, missed SLAs, and difficulty tracking case history.</p>
+
+            <div class="challenge-box">
+                <h3>Critical Problems Identified</h3>
+                <p>Through extensive stakeholder interviews, workflow shadowing, and analysis of case metrics, we discovered that agents were toggling between 4-6 different systems to resolve a single customer case. Information about customer history, previous interactions, account details, and case notes were scattered across platforms, requiring agents to manually piece together context. This fragmentation led to average case resolution times of 8-12 days, with 30% of cases requiring escalation due to incomplete information or missed steps. Additionally, there was no standardized process for case prioritization, resulting in high-priority issues being delayed while lower-priority cases were addressed first.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Agent Pain Points</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>System Fragmentation:</strong> Agents needed to access multiple disconnected systems (CRM, ticketing, compliance tools, account management) to gather information and complete case workflows</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Context Loss:</strong> No centralized view of customer history, previous cases, or related interactions, forcing agents to repeatedly ask customers for information</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Manual Workflows:</strong> Routine tasks like case assignment, status updates, and notifications required manual intervention, consuming time that could be spent on resolution</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Inconsistent Processes:</strong> Lack of standardized workflows led to varying approaches to similar cases, creating compliance risks and quality inconsistencies</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Business Impact</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Extended Resolution Times:</strong> Average case resolution of 8-12 days compared to industry benchmark of 3-5 days, impacting customer satisfaction scores</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>High Escalation Rate:</strong> 30% of cases required supervisor intervention due to complexity or incomplete information, bottlenecking the workflow</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Compliance Risks:</strong> Inconsistent documentation and process adherence created regulatory exposure, particularly for dispute and fraud cases</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Agent Burnout:</strong> Frustration with inefficient tools contributing to 40% annual turnover rate in customer service teams</p>
+                </div>
+            </div>
+
+            <div class="challenge-box">
+                <h3>Understanding Our Users: Multiple Personas, One Platform</h3>
+                <p>The work case management system needed to serve multiple user types with different needs and priorities. Frontline agents needed quick access to customer information and streamlined workflows to resolve cases efficiently. Supervisors required oversight tools to monitor team performance, redistribute workloads, and handle escalations. Compliance officers needed robust audit trails, reporting capabilities, and the ability to flag cases for review. Management wanted dashboards showing key metrics, bottlenecks, and trends.</p>
+                <p>Research revealed that agents spent approximately 40% of their time searching for information rather than resolving cases. The most successful agents had developed personal systems—notebooks, spreadsheets, browser bookmarks—to compensate for system limitations. New agents required 4-6 weeks of training just to navigate the various systems, and even experienced agents made frequent errors due to process complexity. The recurring theme was "I just want to see everything about this customer and this case in one place."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Research & Discovery</h2>
+            <p class="section-description">We conducted comprehensive research to understand the complete case management ecosystem, user workflows across different roles, technical constraints, and regulatory requirements.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Research Methods</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Contextual Inquiry:</strong> Shadowed 25 agents across different departments (disputes, fraud, general inquiries, technical support) for 80+ hours, documenting workflows, pain points, and workarounds in real-world scenarios.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Stakeholder Workshops:</strong> Facilitated 8 collaborative workshops with representatives from customer service, compliance, IT, operations, and management to align on requirements and priorities.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Case Data Analysis:</strong> Analyzed 6 months of case data including 50,000+ cases to identify patterns, common case types, resolution paths, and bottlenecks in the current process.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Competitive Analysis:</strong> Evaluated 10 enterprise case management platforms (Salesforce Service Cloud, Zendesk, ServiceNow, Freshdesk) to identify best practices and innovative approaches to case workflows.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Research Insights</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Context is Critical:</strong> 85% of case resolution time was spent gathering context and information rather than actually solving the problem, indicating a need for consolidated customer views.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Automation Opportunity:</strong> 60% of agent actions were routine tasks that could be automated (status updates, assignments, notifications, template responses), freeing time for complex problem-solving.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Collaboration Gaps:</strong> Cases often required input from multiple departments, but there was no effective way to coordinate, track handoffs, or maintain context across teams.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Visibility Blind Spots:</strong> Supervisors and management lacked real-time visibility into case queues, agent workloads, and bottlenecks, making it difficult to optimize resource allocation.</p>
+                </div>
+            </div>
+
+            <div class="persona-box">
+                <h3>User Persona: Jennifer, The Customer Service Agent</h3>
+                <p><strong>Demographics:</strong> 34 years old, 4 years in customer service, handles 15-20 cases per day across disputes, billing inquiries, and account issues.</p>
+                <p><strong>Goals:</strong> Resolve customer cases quickly and accurately, meet SLA targets, maintain quality scores, avoid escalations by having all necessary information.</p>
+                <p><strong>Pain Points:</strong> Frustrated by system-switching overhead, stressed when customers repeat information she should already have, worried about missing steps in complex cases, feels powerless when needing other teams' input.</p>
+                <p><strong>Quote:</strong> "I spend more time hunting for information than actually helping customers. By the time I've logged into three different systems and pieced together what's happening, the customer is already frustrated that I didn't know their history."</p>
+            </div>
+
+            <div class="info-box">
+                <h3>Workflow Analysis: Current State Pain Points</h3>
+                <p><strong>Typical Case Journey:</strong> A customer dispute case would typically involve: (1) Agent receives call or email, (2) Looks up customer in CRM, (3) Opens ticketing system to create case, (4) Switches to account management system to view transaction history, (5) Accesses separate compliance tool to check fraud indicators, (6) Manually copies information between systems, (7) Assigns case to appropriate queue (often incorrectly due to unclear criteria), (8) Case sits in queue until picked up, (9) New agent must reconstruct context from scattered notes, (10) Multiple handoffs between teams with context loss at each step, (11) Final resolution communicated separately, often missing full case history.</p>
+                <p><strong>Key Inefficiencies:</strong> The process involved an average of 12 system logins per case, 4-5 handoffs between agents or departments, and 3-4 days of idle time waiting in queues. Information entered in one system wasn't available in others, creating data inconsistencies and duplicate work. There was no automated routing based on case type, priority, or agent expertise, leading to misassigned cases and unnecessary reassignments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Design Solution</h2>
+            <p class="section-description">We designed a unified work case management platform that consolidates customer context, automates routine workflows, enables intelligent routing, and provides real-time visibility across the entire case lifecycle.</p>
+
+            <div class="solution-box">
+                <h3>Core Design Approach</h3>
+                <p>The solution centered on three key principles: (1) Single source of truth—one platform where all case-related information lives, eliminating system-switching and information hunting, (2) Intelligent automation—leveraging rules-based logic and machine learning to handle routine tasks, prioritize cases, and suggest next actions, and (3) Collaborative workflows—enabling seamless handoffs, cross-team coordination, and transparent communication throughout the case journey. The interface needed to be role-appropriate, surfacing the right information and actions for each user type while maintaining a consistent experience.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Unified case dashboard with customizable views by role and workload</li>
+                        <li>360-degree customer context panel showing account, history, and interactions</li>
+                        <li>Intelligent case routing based on type, priority, and agent skills</li>
+                        <li>Automated workflow engine with configurable business rules</li>
+                        <li>Collaborative case workspace with internal notes and mentions</li>
+                        <li>Real-time status tracking and SLA monitoring with alerts</li>
+                        <li>Template library for common responses and actions</li>
+                        <li>Comprehensive audit trail for compliance and quality review</li>
+                        <li>Advanced search and filtering with saved views</li>
+                        <li>Reporting and analytics dashboard for supervisors</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Design Decisions</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Three-Panel Layout:</strong> Designed a flexible layout with case list (left), case details (center), and customer context (right). Each panel is collapsible and resizable, allowing agents to customize their workspace.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Progressive Disclosure:</strong> Showed essential information upfront with expandable sections for detailed data, preventing cognitive overload while ensuring comprehensive access when needed.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Status-Driven Actions:</strong> Contextual action menus that adapt based on case status, user role, and next logical steps, guiding agents through proper workflows.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Visual Priority System:</strong> Color-coded priority indicators, SLA countdown timers, and attention flags help agents quickly identify urgent cases requiring immediate action.</p>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Workcase Management - Manager Dashboard.png" alt="Case Management Dashboard">
+                </div>
+                <p class="image-caption">Unified case management dashboard showing case queue, detailed case view, and comprehensive customer context panel</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Information Architecture & Navigation</h2>
+            <p class="section-description">We restructured the case management experience around agent mental models and natural workflows, prioritizing quick access to active cases while providing powerful organization and search capabilities.</p>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Current Application.svg" alt="Navigation Structure">
+                </div>
+                <p class="image-caption">Simplified navigation architecture focusing on case states, customer access, and role-specific views</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Navigation Strategy</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Organized primary navigation around case states that match agent workflows: My Cases (currently assigned), Team Queue (unassigned cases), Pending (awaiting information), Escalated (requiring supervisor review), and Resolved (completed for reference). This state-based organization proved more intuitive than traditional folder structures during testing.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Added secondary navigation for case types (disputes, fraud, billing, technical) allowing agents to filter their view based on expertise. Implemented smart filters and saved searches so agents could create personalized views like "high priority disputes due today" or "fraud cases pending verification."</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Customer Context Integration</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Designed a persistent customer context panel that remains visible regardless of which case is open. This panel consolidates account information, contact history, previous cases, payment history, and behavioral indicators that might signal fraud or risk. Agents can access this information without leaving the current case.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Implemented smart linking between related cases—if a customer has multiple open cases or a history of similar issues, agents see this immediately with one-click access to review related context. This dramatically reduced duplicate work and improved resolution quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Case Detail & Workflow Design</h2>
+            <p class="section-description">The case detail interface was designed to surface the right information at the right time, guide agents through proper workflows, and enable efficient collaboration across teams.</p>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="task.svg" alt="Case Detail">
+                </div>
+                <p class="image-caption">Comprehensive case detail view showing timeline, actions, customer communication, and internal collaboration tools</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Timeline & Activity</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Created a unified timeline showing all case activity: customer communications, agent actions, status changes, system events, and internal notes. Each entry is timestamped and attributed, creating a complete audit trail while helping agents quickly understand case history.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Implemented filters to toggle between all activity, customer-facing communications only, or internal notes only. This allows agents to review the case narrative from different perspectives depending on their current task—whether preparing a customer response or conducting a quality review.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Guided Workflows</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Designed contextual action panels that surface appropriate next steps based on case type, status, and user role. For example, a dispute case displays options like "Request Documentation," "Approve Credit," "Deny Claim," or "Escalate to Supervisor" with each action triggering appropriate workflows and notifications.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Added smart templates and macros for common actions, allowing agents to respond efficiently while maintaining quality and compliance. Templates include merge fields that auto-populate customer and case-specific information, reducing manual work and errors.</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>Collaboration Features</h3>
+                <p><strong>Internal Notes & Mentions:</strong> Agents can add internal notes visible only to team members, using @mentions to notify specific colleagues or teams. This creates a collaborative workspace where agents can ask questions, share insights, or request assistance without leaving the case interface.</p>
+                <p><strong>Handoff Mechanisms:</strong> When cases need to be reassigned or escalated, the system prompts agents to add handoff notes explaining context, actions taken, and what's needed next. This ensures smooth transitions and prevents information loss between team members.</p>
+                <p><strong>Supervisor Oversight:</strong> Supervisors can monitor their team's case queues in real-time, see workload distribution, and step in to reassign cases or provide guidance. They receive automatic alerts for SLA breaches, escalations, or cases stuck in pending status too long.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Automation & Intelligence</h2>
+            <p class="section-description">We incorporated intelligent automation throughout the platform to reduce manual work, improve consistency, and allow agents to focus on complex problem-solving rather than routine tasks.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Automated Routing</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Skill-Based Assignment:</strong> Cases are automatically routed to agents with appropriate expertise based on case type, complexity, and customer segment. The system maintains skill profiles for each agent and learns from successful resolutions to improve routing over time.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Priority Scoring:</strong> Intelligent algorithm calculates priority scores based on multiple factors: customer value, issue severity, SLA deadlines, regulatory requirements, and business impact. High-priority cases automatically jump to the front of queues.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Load Balancing:</strong> System monitors agent workloads and distributes new cases evenly, preventing burnout and ensuring consistent service levels across the team.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Workflow Automation</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Status Transitions:</strong> Automated status updates trigger appropriate notifications, documentation requirements, and next steps. For example, moving a case to "Pending Customer Response" automatically sends a notification email and sets a follow-up reminder.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>SLA Monitoring:</strong> System tracks time-to-resolution and sends escalating alerts as deadlines approach: gentle reminder at 75% of SLA, urgent alert at 90%, and automatic escalation if SLA is breached.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Smart Suggestions:</strong> Machine learning analyzes historical cases to suggest likely resolutions, relevant documentation, or similar past cases that might inform the current situation.</p>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <h3>AI-Powered Insights</h3>
+                <p>Implemented AI capabilities that analyze case patterns to surface insights and recommendations. The system can identify recurring issues that might indicate systemic problems, suggest knowledge base articles that might help resolution, and flag cases with anomalies that might require special attention. For supervisors, AI generates workload forecasts and identifies bottlenecks in the case flow, enabling proactive resource management.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Reporting & Analytics</h2>
+            <p class="section-description">Designed comprehensive reporting tools that provide visibility into case performance, agent productivity, and operational trends for data-driven decision making.</p>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="Queue Tab.svg" alt="Analytics Dashboard">
+                </div>
+                <p class="image-caption">Supervisor dashboard showing real-time metrics, team performance, case trends, and SLA compliance</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Agent Performance</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Individual and team dashboards displaying key metrics: cases resolved, average resolution time, SLA compliance rate, quality scores, and customer satisfaction ratings. Agents can track their own performance and identify areas for improvement.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Performance data is presented constructively with context—comparing to team averages, historical trends, and achievable targets rather than just raw numbers, fostering a culture of continuous improvement.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Operational Insights</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;">Executive dashboards providing high-level views of case volume trends, resolution rates, escalation patterns, and cost per case. Identifies emerging issues, seasonal patterns, and opportunities for process optimization.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;">Custom report builder allows stakeholders to create specialized reports for specific needs—compliance audits, quality reviews, or operational planning—with exportable data and scheduled delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Design System & Components</h2>
+            <p class="section-description">Developed a comprehensive component library specifically optimized for case management workflows, ensuring consistency and scalability across the platform.</p>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="workCaseComponents.svg" alt="Component Library">
+                </div>
+                <p class="image-caption">Specialized components for case lists, status indicators, action menus, timeline views, and form inputs</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Core Components</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Case Card:</strong> Compact, scannable card displaying case essentials—ID, customer name, case type, priority, status, and time remaining. Supports batch actions and drag-and-drop for reassignment.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Status Badge:</strong> Color-coded status indicators with consistent semantics: blue for active, yellow for pending, green for resolved, red for overdue or escalated. Includes tooltips with additional context.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Action Menu:</strong> Contextual dropdown presenting available actions based on case state, with visual hierarchy emphasizing primary actions and grouping related secondary actions.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Interaction Patterns</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Inline Editing:</strong> Agents can update case fields directly in the list view without opening full details, reducing clicks for simple updates like status changes or priority adjustments.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Quick Actions:</strong> Hover states reveal quick action buttons for common tasks like assigning, adding notes, or viewing customer details, providing shortcuts for experienced users.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Keyboard Navigation:</strong> Comprehensive keyboard shortcuts allow power users to navigate, filter, and act on cases without using a mouse, significantly improving efficiency for high-volume agents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Testing & Iteration</h2>
+            <p class="section-description">Conducted extensive usability testing throughout the design process to validate decisions, identify issues, and refine the experience based on real agent feedback.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Testing Approach</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Prototype Testing:</strong> Conducted 5 rounds of testing with 6-8 agents per round, using clickable prototypes to simulate realistic case scenarios. Observed agents completing common workflows and noted friction points, confusion, or delight moments.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Beta Program:</strong> Launched pilot with 20 agents using the production system for 4 weeks. Collected detailed feedback through surveys, interviews, and system analytics tracking usage patterns and error rates.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>A/B Testing:</strong> Tested alternative designs for critical features like case list layouts, filter interfaces, and action menus to determine which approaches performed best in real-world usage.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Key Iterations</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Simplified Navigation:</strong> Initial design had 7 navigation categories; testing revealed agents primarily used 3. Consolidated navigation into focused state-based views with filters for additional segmentation.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Enhanced Customer Panel:</strong> Early versions collapsed customer context by default to maximize case detail space. Agents consistently re-opened it immediately, so we made it persistently visible by default with collapse option.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Action Clarity:</strong> Initial action labels were generic ("Submit," "Update"). Testing showed agents preferred explicit labels ("Approve Dispute," "Request Documentation") that clearly stated outcomes.</p>
+                </div>
+            </div>
+
+            <div class="persona-box">
+                <h3>Testing Insights: Real Agent Feedback</h3>
+                <p><strong>Agent Quote:</strong> "This is exactly what we've been asking for. I can finally see everything I need without clicking through five different systems. The timeline view is especially helpful—I can see the entire case story at a glance."</p>
+                <p><strong>Supervisor Quote:</strong> "The workload visibility is game-changing. I can see exactly where cases are getting stuck and redistribute work before it becomes a problem. And the automated routing is already saving us hours of manual assignment work."</p>
+                <p><strong>Compliance Officer Quote:</strong> "The audit trail is comprehensive and the reporting tools make it easy to pull data for regulatory reviews. Having everything documented in one system reduces our compliance risk significantly."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Results & Impact</h2>
+            <p class="section-description">The work case management system delivered significant improvements in operational efficiency, agent satisfaction, and customer experience within the first 6 months of launch.</p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Faster Resolution</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Fewer Escalations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Agent Satisfaction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">SLA Compliance</div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Operational Improvements</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Resolution Time:</strong> Average case resolution decreased from 8-12 days to 3-4 days, a 65% improvement, bringing performance in line with industry benchmarks.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Escalation Rate:</strong> Cases requiring supervisor intervention dropped from 30% to 17%, reducing bottlenecks and allowing supervisors to focus on strategic work.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Agent Productivity:</strong> Agents now handle 25-30 cases per day compared to 15-20 previously, a 40% increase in throughput without increased workload stress.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Error Reduction:</strong> Case processing errors decreased by 60% due to automated validation, guided workflows, and consolidated information access.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">User & Business Impact</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Agent Satisfaction:</strong> Post-launch survey showed 80% of agents rating the new system as "significantly better" than the previous process, with particular praise for the unified interface and automation.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Training Time:</strong> New agent onboarding reduced from 4-6 weeks to 2-3 weeks due to intuitive design and consolidated workflows, lowering training costs.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Customer Satisfaction:</strong> CSAT scores for case resolution improved from 6.2/10 to 8.1/10, driven by faster resolution times and more informed agent interactions.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Retention Impact:</strong> Agent turnover decreased from 40% to 28% annually, with exit interviews indicating reduced frustration with tools as a contributing factor.</p>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <h3>Long-term Value</h3>
+                <p>Beyond immediate metrics, the work case management system established a scalable foundation for future enhancements. The modular design allows for easy integration of new case types, automation rules, and AI capabilities. The comprehensive data capture enables advanced analytics and machine learning applications that will drive continuous improvement. Most importantly, the system transformed how teams think about case management—from a series of disconnected tasks to a holistic, customer-centric process.</p>
+            </div>
+            <div class="image-container">
+                    <img src="chart.png" alt="Case Management Dashboard">
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Key Learnings</h2>
+            <p class="section-description">This project reinforced several important principles about designing complex enterprise systems and provided valuable insights for future work.</p>
+
+            <div class="two-column">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Design Insights</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Consolidation Over Features:</strong> Users valued unified access to existing information far more than new features. The biggest wins came from bringing scattered data together, not from adding capabilities.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Context is Everything:</strong> Agents needed to see the full picture—customer history, account status, related cases—to make good decisions. Any design that fragmented this context slowed them down.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Automation with Transparency:</strong> Users embraced automation when they understood what the system was doing and could override when needed. Black-box automation created anxiety, while transparent automation built trust.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Process Lessons</h3>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Shadow Before Designing:</strong> Watching agents in their real environment revealed pain points and workarounds that interviews alone never would have uncovered. Contextual inquiry was essential.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8; margin-bottom: 15px;"><strong>Pilot Programs Work:</strong> The beta testing phase with real agents using real data uncovered issues and refinement opportunities that prototype testing missed. Production usage reveals truth.</p>
+                    <p style="color: #5a6c7d; line-height: 1.8;"><strong>Stakeholder Alignment:</strong> Regular workshops with cross-functional stakeholders prevented scope creep and ensured the design served business needs while remaining user-centered.</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <footer>
+        <p>&copy; 2024 Ashra Taslima. All rights reserved.</p>
+    </footer>
+</body>
+</html>

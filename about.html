@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashra Taslima</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        .section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #1a1a1a;
+        }
+
+        .project-content p {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: #f0f4ff;
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .view-case-study {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .view-case-study:hover {
+            background: #5558d9;
+            transform: translateX(5px);
+        }
+
+        .skills-section {
+            background: #f8f9fa;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .skill-card p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+
+        .contact-info a {
+            color: #a0aec0;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(160, 174, 192, 0.4);
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .contact-info a:hover {
+            border-bottom-color: #a0aec0;
+            color: white;
+        }
+
+         section.skills-bars {
+            background: #f8f8f8;
+            padding: 5rem 2rem;
+            border-radius: 8px;
+        }
+
+        .skills-bars-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .skills-bars h2 {
+            text-align: right;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .bar-chart-vertical {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1.5rem;
+            height: 450px;
+            position: relative;
+            padding-left: 100px;
+        }
+
+        .skill-bar-wrapper {
+            flex: 1;
+            max-width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .skill-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 1.5rem 0.8rem;
+            position: relative;
+            overflow: hidden;
+            transition: height 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+            height: 0;
+        }
+
+        .skill-bar.animate {
+            height: var(--height);
+        }
+
+        .skill-bar.aqua { background: linear-gradient(180deg, #7dd3c0 0%, #5fb8a7 100%); --height: 95%; }
+        .skill-bar.pink { background: linear-gradient(180deg, #f5b5a8 0%, #e89b8b 100%); --height: 90%; }
+        .skill-bar.yellow { background: linear-gradient(180deg, #f5d877 0%, #ecc347 100%); --height: 95%; }
+        .skill-bar.brown { background: linear-gradient(180deg, #d4a574 0%, #c08b52 100%); --height: 75%; }
+        .skill-bar.red { background: linear-gradient(180deg, #e88b8b 0%, #d66b6b 100%); --height: 25%; }
+
+        .skill-percent {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-percent span {
+            font-size: 1.8rem;
+        }
+
+        .skill-name {
+            font-size: 1rem;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .skill-levels {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        .skill-levels .level {
+            font-size: 0.95rem;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .ul {
+            list-style: none;
+            font-size: 1.05rem;
+            color: #666;
+            line-height: 2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-middle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-middle p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-middle a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .text-middle a:hover {
+            color: #764ba2;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bar-chart-vertical {
+                padding-left: 60px;
+                gap: 1rem;
+                height: 350px;
+            }
+
+            .skill-bar-wrapper {
+                max-width: 80px;
+            }
+
+            .skill-percent {
+                font-size: 2rem;
+            }
+
+            .skill-percent span {
+                font-size: 1.2rem;
+            }
+
+            .skill-name {
+                font-size: 0.8rem;
+            }
+
+            .skills-bars h2 {
+                font-size: 2rem;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: #1a1a1a;">Ashra Taslima</a></div>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about" class="section" style="margin-top: 50px;">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <img src="homePage.jpg" alt="Design workspace" class="about-image">
+            <div class="about-text">
+                <h3>Hello, I'm a designer who loves to create</h3>
+                <p>With a decade of experience in UI/UX design, I specialize in creating intuitive, user-centered digital experiences that not only look beautiful but solve real problems. My approach combines strategic thinking with creative execution.</p>
+                <p>When I'm not designing, you'll find me in the kitchen experimenting with new recipes, tending to my garden, or crafting handmade creations. I believe that creativity flows across all mediums, and these passions inform my design work in unexpected ways.</p>
+                <p>I'm passionate about accessibility, design systems, and creating products that make people's lives better and more joyful.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+        <h2 class="section-title">What I Do Best</h2>
+        
+        </table>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>User Research</h3>
+                <p>Conducting interviews, usability testing, and data analysis to uncover user needs and validate design decisions.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Interface Design</h3>
+                <p>Creating beautiful, accessible interfaces that balance aesthetics with functionality and usability.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Prototyping</h3>
+                <p>Building interactive prototypes that bring ideas to life and facilitate stakeholder collaboration.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Design Systems</h3>
+                <p>Developing scalable component libraries and guidelines that ensure consistency across products.</p>
+            </div>
+        </div>
+    </section>
+
+        <section id="" class="section">
+        <h2 class="section-title">Random Facts</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>I'm addicted to gaming</p>
+                <p>I'm only slightly addicted to social media</p>
+                <p>I enjoy making art</p>
+                <p>I love to cook and fed people</p>
+                <p>I'm a supper maxamilist</p>
+                <P>Shopping is my cardio</P>
+                <p>The Lord of the Ring trilogy is my bible</p>
+                <p>I want to live in the world of Ghibli</p>
+                <p>Monk Gyatso is my mentor</p>
+                <p>I believe laziness is such an ugly word, I prefer selective participation</p>
+            </div>
+            <img src="image.png" alt="Design workspace" class="about-image" style="box-shadow: none;">
+        </div>
+    </section>
+
+    <section class="skills-bars">
+        <div class="skills-bars-container">
+            <h2>My skills</h2>
+            <div class="bar-chart-vertical">
+                <div class="skill-levels">
+                    <div class="level">Jedi</div>
+                    <div class="level">Ninja</div>
+                    <div class="level">Geek</div>
+                    <div class="level">Newbie</div>
+                </div>
+                
+                <div class="skill-bar-wrapper">
+                    <div class="skill-bar aqua">
+                        <div class="skill-percent">95<span>%</span></div>
+                        <div class="skill-name">Shopping</div>
+                    </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                    <div class="skill-bar pink">
+                        <div class="skill-percent">90<span>%</span></div>
+                        <div class="skill-name">Design Systems</div>
+                    </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                    <div class="skill-bar yellow">
+                        <div class="skill-percent">95<span>%</span></div>
+                        <div class="skill-name">Figma</div>
+                    </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                    <div class="skill-bar brown">
+                        <div class="skill-percent">75<span>%</span></div>
+                        <div class="skill-name">Cooking</div>
+                    </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                    <div class="skill-bar red">
+                        <div class="skill-percent">30<span>%</span></div>
+                        <div class="skill-name">Cardio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Ashra Taslima. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .skill-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });  
+    </script>
+    <script>
+        // Animate vertical skill bars when they come into view
+        const observerOptions1 = {
+            threshold: 0.2
+        };
+
+        const observer1 = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.skill-bar');
+                    bars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            bar.classList.add('animate');
+                        }, index * 200);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions1);
+
+        const barChartVertical = document.querySelector('.bar-chart-vertical');
+        if (barChartVertical) {
+            observer1.observe(barChartVertical);
+        }
+    </script>
+</body>
+</html>

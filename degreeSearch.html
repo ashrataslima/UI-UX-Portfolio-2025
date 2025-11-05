@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashra Taslima</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #1a1a1a;
+        }
+
+        .project-content p {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: #f0f4ff;
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .view-case-study {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .view-case-study:hover {
+            background: #5558d9;
+            transform: translateX(5px);
+        }
+
+        .skills-section {
+            background: #f8f9fa;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .skill-card p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+
+        .contact-info a {
+            color: #a0aec0;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(160, 174, 192, 0.4);
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .contact-info a:hover {
+            border-bottom-color: #a0aec0;
+            color: white;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-alt {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #AB0520;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .content-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #AB0520;
+            font-weight: 600;
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .content-block ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-block ul li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        .content-block ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #AB0520;
+            font-weight: bold;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #AB0520;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .image-showcase {
+            margin: 60px 0;
+            background: #f8f9fa;
+            padding: 60px 40px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .image-showcase h4 {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .mockup-placeholder {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #AB0520;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .process-steps:before {
+            content: "";
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #AB0520;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: #666;
+            padding: 0 10px;
+        }
+
+        .quote {
+            background: #AB0520;
+            color: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .quote-author {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-grid,
+            .stats,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+            }
+
+            .process-steps:before {
+                display: none;
+            }
+
+            .process-step {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: #1a1a1a;">Ashra Taslima</a></div>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+        <section id="project" class="section" style="margin-top: 50px;">
+        <div class="about-grid">
+            <div class="about-text">
+                <h1>Degree Search Refresh</h1><hr>
+                <h5>University of Arizona</h5>
+                <br>
+                <p>The Degree Search application was in need of some love, so I gave it a cosmetic facelift.  This case study shows that visual desing alone can have a huge impact on the UX of a web application. </p>
+            </div>
+            <img src="d.png" alt="Design workspace" class="about-image">
+        </div>
+    </section>
+    
+    <div class="section">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>My Role</h3>
+                    <p>UX/UI Designer</p>
+                    <ul>
+                        <li>User research and analysis</li>
+                        <li>Information architecture</li>
+                        <li>Wireframing and prototyping</li>
+                        <li>Visual design and interaction design</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>Project Overview</h3>
+                    <p>The University of Arizona's graduate degree search needed a complete redesign to better serve prospective students. The existing system was outdated, difficult to navigate, and didn't effectively showcase the breadth of graduate programs available.</p>
+                    <p>The goal was to create an intuitive, accessible, and engaging experience that helps students discover the right graduate program for their career aspirations.</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-label">Graduate Programs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Improved User Satisfaction <br> (Maze Test, n=48)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Faster Program Discovery <br> (2:28 vs. 4:12)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">The Challenge</h2>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>User Pain Points</h3>
+                    <ul>
+                        <li>Overwhelming amount of information with poor organization</li>
+                        <li>Unclear filtering and search functionality</li>
+                        <li>Difficulty comparing programs</li>
+                        <li>Lack of clear next steps in the application process</li>
+                        <li>Mobile experience was nearly unusable</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>Business Goals</h3>
+                    <ul>
+                        <li>Increase graduate program applications</li>
+                        <li>Reduce bounce rate on degree search pages</li>
+                        <li>Improve SEO and discoverability</li>
+                        <li>Showcase program diversity and excellence</li>
+                        <li>Create a scalable system for 300+ programs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Design Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Research</div>
+                    <div class="step-description">User interviews, analytics review, competitor analysis</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Define</div>
+                    <div class="step-description">Information architecture, user flows, content strategy</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Design</div>
+                    <div class="step-description">Wireframes, prototypes, visual design iterations</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Test</div>
+                    <div class="step-description">Usability testing, refinement, validation</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Research Insights</h3>
+                <p>Through user interviews with prospective graduate students and analysis of existing search behavior, several key insights emerged:</p>
+                <p><strong>Students don't know what they're looking for.</strong> Many prospective graduate students are exploring options and need guidance through the discovery process rather than just a search tool.</p>
+                <p><strong>Decision factors vary widely.</strong> Some prioritize research opportunities, others focus on career outcomes, location, or specific faculty. The design needed to accommodate multiple decision-making paths.</p>
+                <p><strong>Mobile is critical.</strong> Over 60% of initial research happens on mobile devices, but the application process shifts to desktop. The experience needed to work seamlessly across devices.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Design Solutions</h2>
+            
+            <div class="image-showcase">
+                <h4>Homepage - Discovery First Approach</h4>
+                <div class="mockup-placeholder">
+                    <img src="DegreeWire1.png" alt="Design workspace" class="about-image">
+                </div>
+                <div class="mockup-placeholder">
+                    <img src="degreeHome.png" alt="Design workspace" class="about-image">
+                </div>
+                <p style="margin-top: 20px; color: #666;">The redesigned homepage prioritizes exploration and discovery with multiple entry points. Featured programs, category browsing, and an intelligent search work together to guide users toward their ideal program.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Smart Search & Filtering</h4>
+                    <p>Advanced filtering by degree type, college, format (online/on-campus), and area of study. Search includes autocomplete with program suggestions and popular searches.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Program Cards</h4>
+                    <p>Redesigned program cards surface key decision-making information at a glance: degree type, format, application deadline, and quick program highlights.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Comparison Tool</h4>
+                    <p>Users can select multiple programs to compare side-by-side, viewing curriculum, career outcomes, faculty expertise, and admission requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Personalized Recommendations</h4>
+                    <p>Based on browsing behavior and stated interests, the system suggests related programs users might not have considered.</p>
+                </div>
+            </div>
+
+            <div class="image-showcase">
+                <h4>Search Results & Filtering Interface</h4>
+                <div class="mockup-placeholder">
+                    <img src="degreeFilleter.png" alt="Design workspace" class="about-image">
+                </div>
+                <p style="margin-top: 20px; color: #666;">The filtering interface allows users to quickly narrow down 300+ programs using multiple criteria. Active filters are clearly displayed with the ability to quickly remove or adjust them.</p>
+            </div>
+
+            <div class="image-showcase">
+                <h4>Individual Program Pages</h4>
+                <div class="mockup-placeholder">
+                    <img src="degreeMain.png" alt="Design workspace" class="about-image">
+                </div>
+                <p style="margin-top: 20px; color: #666;">Program pages provide comprehensive information organized into scannable sections. Key actions like "Request Information" and "Apply Now" remain accessible throughout the scroll experience.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            
+            <div class="content-block" style="margin-bottom: 40px;">
+                <h3>Enhanced Search Experience</h3>
+                <p>The new search functionality combines keyword search with intelligent filtering. As users type, the system suggests programs, popular searches, and related keywords. The search learns from user behavior to improve results over time.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>Browse by Interest</h3>
+                    <p>Recognizing that many users don't arrive with a specific program in mind, we created curated pathways organized by career interests, research areas, and academic disciplines.</p>
+                    <p>This discovery-first approach helps students explore options they might not have known existed, increasing engagement with a wider range of programs.</p>
+                </div>
+                <div class="content-block">
+                    <h3>Mobile-Optimized Experience</h3>
+                    <p>The mobile experience was redesigned from the ground up with touch-first interactions, simplified filtering, and progressive disclosure of information.</p>
+                    <p>Users can easily save programs to compare later on desktop, creating a seamless cross-device research experience.</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                <div class="quote-text">"This is exactly what I needed. I found three programs I never would have considered, and the comparison tool made my decision so much easier."</div>
+                <div class="quote-author">- Graduate School Applicant, Usability Testing</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Design System & Components</h2>
+            
+            <div class="content-block">
+                <h3>Scalable Component Library</h3>
+                <p>To ensure consistency across 300+ program pages and enable efficient content management, I developed a comprehensive component library including:</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Program Cards</h4>
+                    <p>Flexible card components that work in grids, lists, or featured layouts. Includes hover states, loading states, and "saved" indicators.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Filter Components</h4>
+                    <p>Reusable filter chips, dropdowns, and range selectors that maintain state across the user journey.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Content Templates</h4>
+                    <p>Standardized layouts for program pages, faculty profiles, and research areas that maintain brand consistency while allowing content flexibility.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Call-to-Action Patterns</h4>
+                    <p>Contextual CTAs that adapt based on the user's stage in the decision journey, from information requests to application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Results & Impact</h2>
+            
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>Quantitative Results</h3>
+                    <ul>
+                        <li>65% increase in user satisfaction scores (Maze Test, n=48)</li>
+                        <li>40% reduction in average time to find relevant programs (2:28 vs. 4:12)</li>
+                        <li>52% decrease in bounce rate (Google Analytics)</li>
+                        <li>78% increase in mobile engagement (Hotjar)</li>
+                        <li>35% increase in information request submissions (Form Submissions) </li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>Qualitative Feedback</h3>
+                    <p>Post-launch user testing revealed that students felt more confident in their program choices and appreciated the ability to explore options they hadn't initially considered.</p>
+                    <p>Admissions staff reported receiving more qualified inquiries from students who had thoroughly researched their options using the new system.</p>
+                </div>
+            </div>
+
+            <div class="content-block" style="margin-top: 60px;">
+                <h3>Lessons Learned</h3>
+                <p><strong>Discovery needs differ from search needs.</strong> Building separate pathways for users who know what they want versus users who are exploring led to better outcomes for both groups.</p>
+                <p><strong>Progressive disclosure is critical at scale.</strong> With hundreds of programs, showing all information at once overwhelms users. Revealing information progressively based on user interest keeps the experience manageable.</p>
+                <p><strong>Mobile and desktop serve different purposes.</strong> Rather than forcing identical experiences, we optimized each platform for its primary use case: mobile for discovery and research, desktop for detailed comparison and application.</p>
+            </div>
+
+            <div class="content-block" style="margin-top: 60px;">
+                <h3>View Demo</h3>
+                <p><strong>View Live Website:</strong> <a href="https://www.arizona.edu/degree-search/?cat-interest=architecture-planning-development">Degree Search Website</a></p>
+                <p><strong>View Full Interactive Prototype:</strong> <iframe src="Graduate Degree Search.pdf" 
+          style="width:100%; height:800px; border:none; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.15);"
+          allowfullscreen>
+  </iframe></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-alt">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Next Steps</h2>
+            <p style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">Based on initial success, we're expanding the system to include personalized dashboards for applicants, integration with virtual tour experiences, and AI-powered program matching to further streamline the graduate school discovery process.</p>
+        </div>
+    </div>
+
+    
+
+    <footer>
+        <p>&copy; 2025 Ashra Taslima. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .skill-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
